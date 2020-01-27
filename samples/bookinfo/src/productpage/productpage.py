@@ -285,7 +285,8 @@ def productsRoute():
 def productRoute(product_id):
     headers = getForwardHeaders(request)
     status, details = getProductDetails(product_id, headers)
-    return json.dumps(details), status, {'Content-Type': 'application/json'}
+    hoge = {"a" : "hoge"}
+    return json.dumps(hoge), status, {'Content-Type': 'application/json'}
 
 
 @app.route('/api/v1/products/<product_id>/reviews')
@@ -330,7 +331,7 @@ def getProductDetails(product_id, headers):
     except BaseException:
         res = None
     if res and res.status_code == 200:
-        return 200, res.json()
+        return 200, res
     else:
         status = res.status_code if res is not None and res.status_code else 500
         return status, {'error': 'Sorry, product details are currently unavailable for this book.'}
